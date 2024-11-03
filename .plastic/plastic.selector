@@ -1,0 +1,4 @@
+repository "minecraftGame@mistermarin02@cloud"
+  path "/"
+    br "/main"
+    co "/main"

@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 namespace MultiCraft.Scripts.Game.Player
 {
     [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
+        PhotonView photonView;
+        
         public float moveSpeed = 5.0f;  // Скорость движения персонажа
         public float jumpHeight = 2.0f; // Высота прыжка
         public float gravity = -9.81f;  // Сила гравитации
@@ -19,39 +22,46 @@ namespace MultiCraft.Scripts.Game.Player
             controller = GetComponent<CharacterController>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
+            photonView = GetComponent<PhotonView>();
         }
 
         private void Update()
         {
-            // Проверяем, находится ли персонаж на земле
-            isGrounded = controller.isGrounded;
-
-            if (isGrounded && velocity.y < 0)
+            if (photonView.IsMine)
             {
-                velocity.y = -2f; // Небольшое отрицательное значение для стабильного приземления
+                // Проверяем, находится ли персонаж на земле
+                isGrounded = controller.isGrounded;
+
+                if (isGrounded && velocity.y < 0)
+                {
+                    velocity.y = -2f; // Небольшое отрицательное значение для стабильного приземления
+                }
+
+                // Получаем ввод от игрока для движения
+                float horizontalInput = Input.GetAxis("Horizontal");
+                float verticalInput = Input.GetAxis("Vertical");
+
+                // Вычисляем направление движения
+                Vector3 moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
+
+                // Двигаем персонажа
+                controller.Move(moveDirection * (moveSpeed * Time.deltaTime));
+
+                // Проверяем, нажата ли кнопка прыжка и находится ли персонаж на земле
+                if (Input.GetButtonDown("Jump") && isGrounded)
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                }
+
+                // Применяем гравитацию к вертикальной скорости
+                velocity.y += gravity * Time.deltaTime;
+
+                // Двигаем персонажа по вертикали
+                controller.Move(velocity * Time.deltaTime);
             }
-
-            // Получаем ввод от игрока для движения
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-
-            // Вычисляем направление движения
-            Vector3 moveDirection = transform.forward * verticalInput + transform.right * horizontalInput;
-
-            // Двигаем персонажа
-            controller.Move(moveDirection * (moveSpeed * Time.deltaTime));
-
-            // Проверяем, нажата ли кнопка прыжка и находится ли персонаж на земле
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
-
-            // Применяем гравитацию к вертикальной скорости
-            velocity.y += gravity * Time.deltaTime;
-
-            // Двигаем персонажа по вертикали
-            controller.Move(velocity * Time.deltaTime);
+                
         }
+        
     }
 }
