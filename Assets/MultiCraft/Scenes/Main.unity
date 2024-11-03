@@ -250,7 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d83121b069c464aa3de1de0c30855ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChunkPrefab: {fileID: 1461805695088071563, guid: c1e1624d2d3a37d46987104064e48406, type: 3}
+  loadRadius: 7
+  chunkPrefab: {fileID: 782332017304708743, guid: c1e1624d2d3a37d46987104064e48406, type: 3}
+  generator: {fileID: 11400000, guid: fe2a7a6da8cb93e4294cb35bcc65671a, type: 2}
+  blockDataBase: {fileID: 11400000, guid: 6dfd3d8fa9e150a45a7305e130dbe3e5, type: 2}
 --- !u!4 &292135358
 Transform:
   m_ObjectHideFlags: 0
@@ -560,10 +563,18 @@ Transform:
   m_GameObject: {fileID: 1853359732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -4.87, y: 34.39, z: -3.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+=======
+  m_LocalPosition: {x: 0, y: 128, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.9, z: 0.8}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 330585546}
+>>>>>>> 97fffc91b351cab8d5fff91746cdcfe6e47dd373
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1920177091
