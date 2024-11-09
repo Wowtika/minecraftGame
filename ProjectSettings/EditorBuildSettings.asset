@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MultiCraft/Scenes/Menu.unity
+    guid: e054153a65a74404080e94fb96ae120e
+  - enabled: 1
+    path: Assets/MultiCraft/Scenes/Loading.unity
+    guid: 1b75fa815dfe86a4dbc38d12e4b17dd3
+  - enabled: 1
     path: Assets/MultiCraft/Scenes/Main.unity
     guid: 78de57e67f7716346a240428dc34653b
   m_configObjects:
