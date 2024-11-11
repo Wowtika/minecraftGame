@@ -11,6 +11,9 @@ public class Loadingscene : MonoBehaviour
 
     private IEnumerator LoadMainScene()
     {
+        // Задержка в 2.5 секунды
+        yield return new WaitForSeconds(1.5f);
+
         // Здесь можно добавить логическую часть загрузки (например, анимацию)
         // Загрузка основной сцены
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Main");
